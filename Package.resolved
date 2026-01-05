@@ -1,0 +1,78 @@
+{
+  "originHash" : "ae2cc3edec8c61a64f0452bc3ed9527680536c66a6aeb8bab6ae7dfff8552157",
+  "pins" : [
+    {
+      "identity" : "javascriptkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swiftwasm/JavaScriptKit",
+      "state" : {
+        "revision" : "4b327dc40d3931c2236ed43c6b47325c17c88afe",
+        "version" : "0.37.0"
+      }
+    },
+    {
+      "identity" : "javascriptkitextensions",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Py-Swift/JavaScriptKitExtensions",
+      "state" : {
+        "branch" : "master",
+        "revision" : "fbd067544dbbe1b602c3631c1afad7f0804439ef"
+      }
+    },
+    {
+      "identity" : "pyswiftast",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Py-Swift/PySwiftAST",
+      "state" : {
+        "branch" : "master",
+        "revision" : "9c6af68882d5d9f352bbba7b60baa16b717b0219"
+      }
+    },
+    {
+      "identity" : "swift-algorithms",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-algorithms",
+      "state" : {
+        "revision" : "87e50f483c54e6efd60e885f7f5aa946cee68023",
+        "version" : "1.2.1"
+      }
+    },
+    {
+      "identity" : "swift-numerics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-numerics.git",
+      "state" : {
+        "revision" : "0c0290ff6b24942dadb83a929ffaaa1481df04a2",
+        "version" : "1.1.1"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swiftlang/swift-syntax",
+      "state" : {
+        "revision" : "f99ae8aa18f0cf0d53481901f88a0991dc3bd4a2",
+        "version" : "601.0.1"
+      }
+    },
+    {
+      "identity" : "swiftykvlang",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Py-Swift/SwiftyKvLang",
+      "state" : {
+        "branch" : "master",
+        "revision" : "7a3cb0a9dd065e2e44fb8729cb357d954c35bd24"
+      }
+    },
+    {
+      "identity" : "vscodemonacoapi",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Py-Swift/VSCodeMonacoApi",
+      "state" : {
+        "branch" : "master",
+        "revision" : "f75b4357ba7ac7317b7aca1f400e46f1196206db"
+      }
+    }
+  ],
+  "version" : 3
+}

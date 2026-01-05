@@ -1,0 +1,70 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run Extension",
+            "type": "extensionHost",
+            "request": "launch",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceFolder}"
+            ],
+            "outFiles": [
+                "${workspaceFolder}/out/**/*.js"
+            ],
+            "preLaunchTask": "${defaultBuildTask}"
+        },
+        {
+            "name": "Extension Tests",
+            "type": "extensionHost",
+            "request": "launch",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceFolder}",
+                "--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
+            ],
+            "outFiles": [
+                "${workspaceFolder}/out/test/**/*.js"
+            ],
+            "preLaunchTask": "${defaultBuildTask}"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:KvToPyClassVsCode}",
+            "name": "Debug KvToPyClassVsCodeExtension",
+            "target": "KvToPyClassVsCodeExtension",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug KvToPyClassVsCodeExtension"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:KvToPyClassVsCode}",
+            "name": "Release KvToPyClassVsCodeExtension",
+            "target": "KvToPyClassVsCodeExtension",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release KvToPyClassVsCodeExtension"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:SwiftyKvLangVCE}",
+            "name": "Debug SwiftyKvLangVCE",
+            "target": "SwiftyKvLangVCE",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug SwiftyKvLangVCE"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:SwiftyKvLangVCE}",
+            "name": "Release SwiftyKvLangVCE",
+            "target": "SwiftyKvLangVCE",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release SwiftyKvLangVCE"
+        }
+    ]
+}

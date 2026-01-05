@@ -1,0 +1,186 @@
+{
+  "name": "swifty-kv-lang",
+  "displayName": "SwiftyKvLangVCE",
+  "description": "VS Code extension for Kivy KV language with syntax highlighting, diagnostics, and Python class generation",
+  "version": "0.1.0",
+  "publisher": "pyswiftkit",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Formatters"
+  ],
+  "keywords": [
+    "kivy",
+    "kv",
+    "python",
+    "code generation"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "kvExplorer",
+          "title": "KV Explorer",
+          "icon": "$(symbol-class)"
+        }
+      ]
+    },
+    "views": {
+      "kvExplorer": [
+        {
+          "id": "kvFilesView",
+          "name": "KV Files"
+        },
+        {
+          "id": "kvWidgetsView",
+          "name": "KV Widgets",
+          "type": "tree"
+        },
+        {
+          "id": "kvOutlineView",
+          "name": "KV Outline",
+          "type": "tree"
+        }
+      ]
+    },
+    "languages": [
+      {
+        "id": "kv",
+        "aliases": [
+          "SwiftyKv Language",
+          "KV",
+          "kv"
+        ],
+        "extensions": [
+          ".kv"
+        ],
+        "firstLine": "^<[A-Z][a-zA-Z0-9_]*(@[A-Z][a-zA-Z0-9_]*)?>:",
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "kv",
+        "scopeName": "source.kv",
+        "path": "./syntaxes/kv.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "swiftyKvLang.generatePythonClass",
+        "title": "KV: Generate Python Class",
+        "icon": "$(symbol-class)"
+      },
+      {
+        "command": "swiftyKvLang.showPreview",
+        "title": "KV: Show Preview Panel",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "swiftyKvLang.showVncPreview",
+        "title": "KV: Show Live Kivy Preview (Select Instance)",
+        "icon": "$(device-camera-video)"
+      },
+      {
+        "command": "swiftyKvLang.showVncPreview1",
+        "title": "KV: Show Live Preview - Instance 1",
+        "icon": "$(device-camera-video)"
+      },
+      {
+        "command": "swiftyKvLang.showVncPreview2",
+        "title": "KV: Show Live Preview - Instance 2",
+        "icon": "$(device-camera-video)"
+      },
+      {
+        "command": "swiftyKvLang.toggleAutoGenerate",
+        "title": "KV: Toggle Auto-Generate"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "swiftyKvLang.showVncPreview",
+          "when": "resourceLangId == kv",
+          "group": "navigation@0"
+        },
+        {
+          "command": "swiftyKvLang.showPreview",
+          "when": "resourceLangId == kv",
+          "group": "navigation@1"
+        },
+        {
+          "command": "swiftyKvLang.generatePythonClass",
+          "when": "resourceLangId == kv",
+          "group": "navigation@2"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "swiftyKvLang.generatePythonClass",
+          "when": "resourceLangId == kv"
+        },
+        {
+          "command": "swiftyKvLang.showPreview",
+          "when": "resourceLangId == kv"
+        },
+        {
+          "command": "swiftyKvLang.showVncPreview"
+        },
+        {
+          "command": "swiftyKvLang.showVncPreview1"
+        },
+        {
+          "command": "swiftyKvLang.showVncPreview2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "SwiftyKvLangVCE",
+      "properties": {
+        "swiftyKvLang.autoGenerate": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically generate Python classes when KV or Python files change"
+        },
+        "swiftyKvLang.debounceDelay": {
+          "type": "number",
+          "default": 500,
+          "description": "Delay in milliseconds before generating code after changes"
+        },
+        "swiftyKvLang.previewOnSide": {
+          "type": "boolean",
+          "default": true,
+          "description": "Open preview panel to the side instead of in current column"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/iarna__toml": "^2.0.5",
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "@vscode/test-electron": "^2.3.8",
+    "eslint": "^8.54.0",
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "@iarna/toml": "^2.2.5"
+  }
+}

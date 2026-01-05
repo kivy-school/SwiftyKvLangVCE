@@ -1,0 +1,179 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "SwiftyKv Language",
+  "scopeName": "source.kv",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#directives" },
+    { "include": "#rule-definition" },
+    { "include": "#canvas-instructions" },
+    { "include": "#property-assignment" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
+    { "include": "#keywords" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.kv",
+          "match": "#.*$"
+        }
+      ]
+    },
+    "directives": {
+      "patterns": [
+        {
+          "name": "keyword.directive.kv",
+          "match": "^\\s*#:(?:import|include|set|kivy)\\b.*$"
+        }
+      ]
+    },
+    "rule-definition": {
+      "patterns": [
+        {
+          "name": "meta.rule.kv",
+          "match": "^\\s*<([A-Z][a-zA-Z0-9_]*)(@([A-Z][a-zA-Z0-9_]*))?>(\\+)?:\\s*$",
+          "captures": {
+            "1": { "name": "entity.name.type.class.kv" },
+            "2": { "name": "punctuation.definition.inheritance.kv" },
+            "3": { "name": "entity.other.inherited-class.kv" },
+            "4": { "name": "keyword.operator.kv" }
+          }
+        },
+        {
+          "name": "meta.widget-instance.kv",
+          "match": "^(\\s*)([A-Z][a-zA-Z0-9_]*):\\s*$",
+          "captures": {
+            "2": { "name": "entity.name.type.class.kv" }
+          }
+        }
+      ]
+    },
+    "canvas-instructions": {
+      "patterns": [
+        {
+          "name": "keyword.control.canvas.kv",
+          "match": "\\b(canvas|canvas\\.before|canvas\\.after)\\b"
+        },
+        {
+          "name": "support.class.canvas.kv",
+          "match": "\\b(Color|Rectangle|Ellipse|Line|Point|Mesh|Triangle|Quad|Bezier|StencilPush|StencilPop|StencilUse|StencilUnUse|Scale|Rotate|PushMatrix|PopMatrix|Translate)\\b"
+        }
+      ]
+    },
+    "property-assignment": {
+      "patterns": [
+        {
+          "name": "meta.property.event-handler.kv",
+          "match": "^(\\s*)(on_[a-z_][a-zA-Z0-9_]*)(:)\\s*(.*)$",
+          "captures": {
+            "2": { "name": "keyword.control.event.kv" },
+            "3": { "name": "punctuation.separator.colon.kv" },
+            "4": { "patterns": [{ "include": "source.python" }] }
+          }
+        },
+        {
+          "name": "meta.property.assignment.kv",
+          "match": "^(\\s*)([a-z_][a-zA-Z0-9_]*)(:)\\s*(.*)$",
+          "captures": {
+            "2": { "name": "variable.other.property.kv" },
+            "3": { "name": "punctuation.separator.colon.kv" },
+            "4": { "patterns": [{ "include": "#property-value" }] }
+          }
+        },
+        {
+          "name": "meta.property.id.kv",
+          "match": "^(\\s*)(id)(:)\\s*([a-z_][a-zA-Z0-9_]*)\\s*$",
+          "captures": {
+            "2": { "name": "keyword.other.id.kv" },
+            "3": { "name": "punctuation.separator.colon.kv" },
+            "4": { "name": "variable.other.id.kv" }
+          }
+        }
+      ]
+    },
+    "property-value": {
+      "patterns": [
+        { "include": "#strings" },
+        { "include": "#numbers" },
+        { "include": "#python-expression" },
+        {
+          "name": "variable.other.reference.kv",
+          "match": "\\b(self|root|app)\\b"
+        }
+      ]
+    },
+    "python-expression": {
+      "patterns": [
+        {
+          "name": "meta.embedded.python.kv",
+          "begin": "\\b(f)(['\"])",
+          "end": "\\2",
+          "beginCaptures": {
+            "1": { "name": "string.quoted.prefix.kv" },
+            "2": { "name": "punctuation.definition.string.begin.kv" }
+          },
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.kv" }
+          },
+          "patterns": [
+            {
+              "name": "meta.interpolation.python.kv",
+              "begin": "\\{",
+              "end": "\\}",
+              "patterns": [{ "include": "source.python" }]
+            }
+          ],
+          "contentName": "string.quoted.fstring.kv"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.single.kv",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.kv",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.double.kv",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.kv",
+              "match": "\\\\."
+            }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.float.kv",
+          "match": "\\b\\d+\\.\\d+\\b"
+        },
+        {
+          "name": "constant.numeric.integer.kv",
+          "match": "\\b\\d+\\b"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "constant.language.kv",
+          "match": "\\b(True|False|None)\\b"
+        }
+      ]
+    }
+  }
+}
