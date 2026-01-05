@@ -137,6 +137,7 @@ To start fresh:
 ```bash
 ./clean.sh
 npm install
+npm install -g @vscode/vsce
 ./build-wasm.sh
 vsce package
 ```
