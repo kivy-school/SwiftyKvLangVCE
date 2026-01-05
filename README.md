@@ -94,6 +94,53 @@ class UserProfile(BoxLayout):
         self.add_widget(label_A1B2C3D4)
 ```
 
+## Building from Source
+
+### Prerequisites
+
+- Node.js and npm
+- Swift toolchain with WebAssembly support (swiftly)
+- VS Code Extension Manager (vsce)
+
+### Build Steps
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Build WASM and compile TypeScript:**
+   ```bash
+   ./build-wasm.sh
+   ```
+   This will:
+   - Compile Swift code to WebAssembly
+   - Generate JavaScript runtime files
+   - Compress WASM binary
+   - Compile TypeScript to JavaScript
+
+3. **Package the extension:**
+   ```bash
+   npm install -g @vscode/vsce
+   vsce package
+   ```
+   This creates a `.vsix` file you can install in VS Code.
+
+4. **Install the extension:**
+   ```bash
+   code --install-extension swifty-kv-lang-*.vsix
+   ```
+
+### Clean Build
+
+To start fresh:
+```bash
+./clean.sh
+npm install
+./build-wasm.sh
+vsce package
+```
+
 ## Requirements
 
 - VSCode 1.85.0 or higher
