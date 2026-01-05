@@ -2,7 +2,6 @@ import * as vscode from 'vscode';
 import { WasmBridge } from './wasmBridge';
 import { PairedFileManager } from './pairedFileManager';
 import { PreviewPanel } from './previewPanel';
-import { VncPreviewPanel } from './vncPreviewPanel';
 import { DiagnosticsProvider } from './diagnosticsProvider';
 import { KvSymbolProvider } from './symbolProvider';
 import { KvCompletionProvider } from './completionProvider';
@@ -154,56 +153,9 @@ function registerCommands(context: vscode.ExtensionContext) {
         }
     );
     
-    // Command: Show VNC Live Preview - Instance Selector
-    const vncPreviewCommand = vscode.commands.registerCommand(
-        'swiftyKvLang.showVncPreview',
-        async () => {
-            try {
-                await VncPreviewPanel.showInstanceSelector(context);
-            } catch (error) {
-                vscode.window.showErrorMessage(
-                    `Failed to open VNC preview: ${error instanceof Error ? error.message : String(error)}`
-                );
-            }
-        }
-    );
-    
-    // Command: Show VNC Live Preview - Instance 1
-    const vncPreview1Command = vscode.commands.registerCommand(
-        'swiftyKvLang.showVncPreview1',
-        async () => {
-            try {
-                const panel = VncPreviewPanel.getInstance(context, 1);
-                await panel.show();
-            } catch (error) {
-                vscode.window.showErrorMessage(
-                    `Failed to open VNC preview (Instance 1): ${error instanceof Error ? error.message : String(error)}`
-                );
-            }
-        }
-    );
-    
-    // Command: Show VNC Live Preview - Instance 2
-    const vncPreview2Command = vscode.commands.registerCommand(
-        'swiftyKvLang.showVncPreview2',
-        async () => {
-            try {
-                const panel = VncPreviewPanel.getInstance(context, 2);
-                await panel.show();
-            } catch (error) {
-                vscode.window.showErrorMessage(
-                    `Failed to open VNC preview (Instance 2): ${error instanceof Error ? error.message : String(error)}`
-                );
-            }
-        }
-    );
-    
     context.subscriptions.push(generateCommand);
     context.subscriptions.push(previewCommand);
     context.subscriptions.push(toggleAutoGenerateCommand);
-    context.subscriptions.push(vncPreviewCommand);
-    context.subscriptions.push(vncPreview1Command);
-    context.subscriptions.push(vncPreview2Command);
 }
 
 /**

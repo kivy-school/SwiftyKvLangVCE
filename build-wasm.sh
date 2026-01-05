@@ -17,6 +17,70 @@ $SWIFT_BIN package -c release --swift-sdk swift-6.2.1-RELEASE_wasm js --use-cdn 
 mkdir -p "$OUTPUT"
 cp -r "$BUILD_DIR"/* "$OUTPUT/"
 
+# Create CommonJS loader for VSCode
+cat > "$OUTPUT/loader.cjs" << 'EOF'
+// CommonJS loader for WASM module in VSCode extension
+const path = require('path');
+const fs = require('fs');
+const { WASI } = require('wasi');
+
+async function loadWasm() {
+    try {
+        const wasmDir = __dirname;
+        const wasmPath = path.join(wasmDir, 'SwiftyKvLangVCE.wasm.gz');
+        const zlib = require('zlib');
+        
+        // Read and decompress the WASM file
+        const compressedBuffer = fs.readFileSync(wasmPath);
+        const wasmBuffer = zlib.gunzipSync(compressedBuffer);
+        
+        // Dynamically import ES modules (runtime and instantiate)
+        const runtimeModule = await import(path.join(wasmDir, 'runtime.js'));
+        const instantiateModule = await import(path.join(wasmDir, 'instantiate.js'));
+        
+        // Create Swift runtime
+        const swift = new runtimeModule.SwiftRuntime();
+        
+        // Create WASI with Node.js built-in support
+        const wasi = new WASI({
+            version: 'preview1',
+            args: [],
+            env: process.env,
+            preopens: {}
+        });
+        
+        // Compile WASM module
+        const module = await WebAssembly.compile(wasmBuffer);
+        
+        // Setup options for instantiation
+        const options = {
+            module,
+            wasi: {
+                initialize: (instance) => wasi.initialize(instance),
+                setInstance: (instance) => {},
+                wasiImport: wasi.wasiImport
+            },
+            args: [],
+            env: {}
+        };
+        
+        // Use the instantiate function from the generated code
+        const result = await instantiateModule.instantiate(options);
+        
+        console.log('[WasmLoader] WASM loaded successfully');
+        console.log('[WasmLoader] Swift runtime:', result.swift);
+        console.log('[WasmLoader] Instance exports:', Object.keys(result.instance.exports));
+        
+        return result;
+    } catch (error) {
+        console.error('[WasmLoader] Failed to load WASM:', error);
+        throw error;
+    }
+}
+
+module.exports = { loadWasm };
+EOF
+
 # Compress and patch for VSCode extension
 if [ -f "$OUTPUT/$PRODUCT.wasm" ]; then
     original_size=$(stat -f%z "$OUTPUT/$PRODUCT.wasm")

@@ -4,3 +4,4 @@ node_modules
 *.vsix
 .build
 wasm
+package-lock.json
